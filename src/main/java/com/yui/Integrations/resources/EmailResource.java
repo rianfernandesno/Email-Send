@@ -2,6 +2,7 @@ package com.yui.Integrations.resources;
 
 import com.yui.Integrations.dto.EmailDTO;
 import com.yui.Integrations.services.EmailService;
+import com.yui.Integrations.services.SendGridEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
