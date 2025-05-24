@@ -8,6 +8,7 @@ import com.sendgrid.helpers.mail.Mail;
 import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Email;
 import com.yui.Integrations.dto.EmailDTO;
+import com.yui.Integrations.services.exceptions.EmailException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,11 +38,12 @@ public class EmailService {
             Response response = sendGrid.api(request);
             if (response.getStatusCode() >= 400 && response.getStatusCode() <= 500){
                 LOG.error("ERROR sending email " + response.getBody());
-            }else{
-                LOG.info("Email sent! status = " + response.getStatusCode());
+                throw new EmailException(response.getBody());
             }
+            LOG.info("Email sent! status = " + response.getStatusCode());
+
         }catch (IOException e){
-            e.printStackTrace();
+            throw new EmailException(e.getMessage());
         }
     }
 }
